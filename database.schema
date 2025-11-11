@@ -15,7 +15,6 @@ CREATE TABLE IF NOT EXISTS SentMessages (
     emoji TEXT NOT NULL,
     source_message_id INTEGER NOT NULL,
     
-    UNIQUE(guild_id, emoji),
     FOREIGN KEY(guild_id, emoji) REFERENCES ReactionChannels(guild_id, emoji) ON DELETE CASCADE
 );
 
