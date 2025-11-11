@@ -1,0 +1,3 @@
+discord.py>=2.6
+asqlite>=2
+emoji>=2

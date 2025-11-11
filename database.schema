@@ -1,0 +1,55 @@
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE IF NOT EXISTS ReactionChannels (
+    guild_id INTEGER NOT NULL,
+    emoji TEXT NOT NULL,
+    threshold INTEGER NOT NULL,
+    destination_channel_id INTEGER NOT NULL,
+    
+    UNIQUE(guild_id, emoji),
+    PRIMARY KEY(guild_id, emoji)
+);
+
+CREATE TABLE IF NOT EXISTS SentMessages (
+    guild_id INTEGER NOT NULL,
+    emoji TEXT NOT NULL,
+    source_message_id INTEGER NOT NULL,
+    
+    UNIQUE(guild_id, emoji),
+    FOREIGN KEY(guild_id, emoji) REFERENCES ReactionChannels(guild_id, emoji) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS ChannelLists (
+    guild_id INTEGER NOT NULL,
+    emoji TEXT NOT NULL,
+
+    is_whitelist BOOLEAN NOT NULL,
+    channel_list_1 INTEGER,
+    channel_list_2 INTEGER,
+    channel_list_3 INTEGER,
+    channel_list_4 INTEGER,
+    channel_list_5 INTEGER,
+    channel_list_6 INTEGER,
+    channel_list_7 INTEGER,
+    channel_list_8 INTEGER,
+    channel_list_9 INTEGER,
+    channel_list_10 INTEGER,
+    channel_list_11 INTEGER,
+    channel_list_12 INTEGER,
+    channel_list_13 INTEGER,
+    channel_list_14 INTEGER,
+    channel_list_15 INTEGER,
+    channel_list_16 INTEGER,
+    channel_list_17 INTEGER,
+    channel_list_18 INTEGER,
+    channel_list_19 INTEGER,
+    channel_list_20 INTEGER,
+    channel_list_21 INTEGER,
+    channel_list_22 INTEGER,
+    channel_list_23 INTEGER,
+    channel_list_24 INTEGER,
+    channel_list_25 INTEGER,
+
+    UNIQUE(guild_id, emoji),
+    FOREIGN KEY(guild_id, emoji) REFERENCES ReactionChannels(guild_id, emoji) ON DELETE CASCADE
+);
