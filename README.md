@@ -1,0 +1,12 @@
+# OpenStarboard
+
+A modern, configurable starboard bot for Discord.
+
+Made in 6 hours.
+
+# Setup
+
+- `pip install -r requirements.txt`
+- `sqlite3 bot.db < database.schema`
+- `echo "DISCORD_TOKEN = '<TOKEN>'" > auth.py`
+- `python main.py`
