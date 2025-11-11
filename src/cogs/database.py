@@ -38,25 +38,24 @@ class Database:
         rows = [[*row,] for row in rows]
         max_column_lengths = []
         for i in range(len(headers)):
-            max_len = len(headers[i]) + 2
+            max_len = len(headers[i])
             for row in rows:
                 val = row[i] = str(row[i])
-                max_len = max(max_len, len(val) + 2)
+                max_len = max(max_len, len(val))
             max_column_lengths.append(max_len)
         s = ["|"]
         for length, header in zip(max_column_lengths, headers):
-            s.append(f"{header: ^{length}}|")
+            s.append(f" {header: ^{length}} |")
         s.append("\n|")
         for length in max_column_lengths:
-            s.append("-"*length)
-            s.append("|")
+            s.append("-"*(length+2))
         for row in rows:
             s.append("\n|")
             for length, val in zip(max_column_lengths, row):
                 if all(c in (*"0123456789+-.e",) for c in val):
-                    s.append(f"{val: >{length}}|")
+                    s.append(f" {val: >{length}} |")
                 else:
-                    s.append(f"{val: <{length}}|")
+                    s.append(f" {val: <{length}} |")
         return "".join(s)
 
     async def validate_channel(self, channel: ReactionChannel):
