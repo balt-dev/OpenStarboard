@@ -4,7 +4,7 @@ import emoji as em
 import discord
 from discord.ext import commands
 from discord import app_commands, Interaction
-from discord.app_commands import Choice
+from discord.app_commands import Choice, errors
 from asqlite import sqlite3
 
 import config
@@ -140,30 +140,29 @@ class CommandsCog(commands.Cog, name="Commands"):
             return [Choice(name=emoji, value=emoji) for emoji in sorted(emojis)]
         
         @bot.tree.command()
-        @discord.app_commands.check(bot.is_owner)
         async def sync_tree(intr: Interaction):
+            if not await bot.is_owner(intr.user):
+                raise errors.CheckFailure()
+
             await intr.response.defer(thinking=True, ephemeral=True)
             await bot.tree.sync()
             await intr.followup.send("Synced!", ephemeral=True)
 
         @bot.tree.command()
-        @discord.app_commands.check(bot.is_owner)
         async def reload_cogs(intr: Interaction):
-            await intr.response.defer(thinking=True, ephemeral=True)
             if not await bot.is_owner(intr.user):
-                return await intr.followup.send("This command is restricted to bot administrators only.", ephemeral = True)
+                raise errors.CheckFailure()
 
+            await intr.response.defer(thinking=True, ephemeral=True)
             await bot.reload_cogs()
-
             await intr.followup.send("Reloaded cogs!", ephemeral=True)
 
         @bot.tree.command()
-        @discord.app_commands.check(bot.is_owner)
         async def sql(intr: Interaction, query: str):
-            await intr.response.defer(thinking=True, ephemeral=True)
             if not await bot.is_owner(intr.user):
-                return await intr.followup.send("This command is restricted to bot administrators only.", ephemeral = True)
-
+                raise errors.CheckFailure()
+                
+            await intr.response.defer(thinking=True, ephemeral=True)
             async with self.bot.db.conn.cursor() as cur:
                 try:
                     result = await cur.execute(query)
