@@ -35,11 +35,11 @@ class ReactionCog(commands.Cog):
             for reaction in reactions:
                 emoji = getattr(reaction.emoji, "name", reaction.emoji)
                 if emoji is not None and emoji == payload.emoji.name:
-                    dest = await bot.db.maybe_get_destination(message, channel, guild, payload.emoji.name, reaction.count)
+                    dest = await self.bot.db.maybe_get_destination(message, channel, guild, payload.emoji.name, reaction.count)
                     if dest is not None:
                         await message.forward(dest)
-                        sent = await dest.send(f"> {payload.emoji.name} **{reaction.count}**\n-# Sent to this board at <t:{int(datetime.now(UTC).timestamp())}:F>")
-                        await self.bot.db.mark_as_sent(message, guild, payload.emoji.name, sent)
+                        await dest.send(f"> {payload.emoji.name} **{reaction.count}**\n-# Sent to this board <t:{int(datetime.now(UTC).timestamp())}:F>")
+                        await self.bot.db.mark_as_sent(message, guild, payload.emoji.name)
         except Exception as err:
             traceback.print_exception(err)
 

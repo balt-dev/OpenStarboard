@@ -194,12 +194,12 @@ class Database:
     async def mark_as_sent(
         self, 
         message: discord.Message, guild: discord.Guild,
-        emoji: str, sent: discord.Message
+        emoji: str
     ):
         async with self.conn.cursor() as cur:
             await cur.execute(
-                "INSERT INTO SentMessages (guild_id, emoji, source_message_id, destination_message_id) VALUES (?, ?, ?, ?)",
-                guild.id, emoji, message.id, sent.id
+                "INSERT INTO SentMessages (guild_id, emoji, source_message_id) VALUES (?, ?, ?)",
+                guild.id, emoji, message.id
             );
 
     async def get_emojis_in_guild(

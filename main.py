@@ -12,7 +12,7 @@ from discord.ext import commands
 import config
 import auth
 
-class Bot(commands.Bot):
+class Bot(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -61,6 +61,7 @@ def main():
         member_cache_flags=discord.MemberCacheFlags.none(),
         max_messages=None,
         chunk_guilds_at_startup=False,
+        shard_count=config.shards
     )
 
     try: 
