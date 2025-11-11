@@ -5,7 +5,7 @@ activity = discord.CustomActivity(
     emoji = discord.PartialEmoji.from_str("⭐")
 )
 description = "An open-source reaction tallying bot."
-sync_on_startup = False
+sync_on_startup = True
 database_path = "bot.db"
 
 MAX_STARBOARDS = 5

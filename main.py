@@ -48,10 +48,6 @@ class Bot(commands.Bot):
     async def on_guild_remove(self, guild: discord.Guild):
         print("Removing stale entries...")
         await self.db.remove_guild(guild)
-    
-    async def on_raw_reaction_add(self, payload: discord.RawReactionActionEvent):
-        if hasattr(self, "raw_reaction_add"):
-            await self.raw_reaction_add(self, payload)
 
 def main():
     discord.utils.setup_logging()
