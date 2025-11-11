@@ -49,6 +49,7 @@ class Database:
         s.append("\n|")
         for length in max_column_lengths:
             s.append("-"*(length+2))
+            s.append("|")
         for row in rows:
             s.append("\n|")
             for length, val in zip(max_column_lengths, row):
