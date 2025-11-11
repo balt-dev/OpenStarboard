@@ -54,9 +54,9 @@ class Database:
             s.append("\n|")
             for length, val in zip(max_column_lengths, row):
                 if all(c in (*"0123456789+-.e",) for c in val):
-                    s.append(f" {val: >{length-2}} |")
+                    s.append(f"{val: >{length}}|")
                 else:
-                    s.append(f" {val: <{length-2}} |")
+                    s.append(f"{val: <{length}}|")
         return "".join(s)
 
     async def validate_channel(self, channel: ReactionChannel):
