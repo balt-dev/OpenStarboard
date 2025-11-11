@@ -119,7 +119,7 @@ class CommandsCog(commands.Cog, name="Commands"):
             if emoji is None:
                 raise MiscellaneousError("The specified emoji is either not valid or not available for use by the bot.")
             await bot.db.try_remove_emoji(intr.guild, emoji)
-            await intr.followup.send("Removed starboard for emoji `{emoji}`.")
+            await intr.followup.send(f"Removed starboard for emoji `{emoji}`.")
 
         @bot.tree.command()
         @discord.app_commands.checks.has_permissions(manage_channels = True)
@@ -131,7 +131,7 @@ class CommandsCog(commands.Cog, name="Commands"):
             if emoji is None:
                 raise MiscellaneousError("The specified emoji is either not valid or not available for use by the bot.")
             await bot.db.set_emoji_threshold(intr.guild, emoji, threshold)
-            await intr.followup.send("Set threshold of starboard for emoji `{emoji}` to `{threshold}`.")
+            await intr.followup.send(f"Set threshold of starboard for emoji `{emoji}` to `{threshold}`.")
         
         @remove.autocomplete("emoji")
         @set_threshold.autocomplete("emoji")

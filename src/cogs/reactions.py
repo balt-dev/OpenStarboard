@@ -9,9 +9,9 @@ from datetime import datetime, UTC
 
 async def on_raw_reaction_add(bot: commands.Bot, payload: discord.RawReactionActionEvent):
     try:
-        if await bot.db.already_sent_message(payload.guild_id, payload.emoji.name, payload.message_id):
-            return
         if not await bot.db.has_reaction_channel_for_emoji(payload.guild_id, payload.emoji.name):
+            return
+        if await bot.db.already_sent_message(payload.guild_id, payload.emoji.name, payload.message_id):
             return
         guild = bot.get_guild(payload.guild_id)
         if guild is None: return
