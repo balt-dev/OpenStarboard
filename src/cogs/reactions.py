@@ -16,12 +16,6 @@ class ReactionCog(commands.Cog):
         try:
             if not await self.bot.db.has_reaction_channel_for_emoji(payload.guild_id, payload.emoji.name):
                 return
-            guild = self.bot.get_guild(payload.guild_id)
-            if guild is None: return
-            channel = guild.get_channel(payload.channel_id)
-            if channel is None: return
-            if not hasattr(channel, "fetch_message"): return
-            message = await channel.fetch_message(payload.message_id)
             if await self.bot.db.already_sent_message(payload.guild_id, payload.emoji.name, payload.message_id):
                 return
             guild = self.bot.get_guild(payload.guild_id)
