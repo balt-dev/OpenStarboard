@@ -30,7 +30,7 @@ class Bot(commands.AutoShardedBot):
             self.reload_extension(f"src.cogs.{cog.stem}", package="bot")
             for cog in Path("src/cogs").glob("*.py")
         ))
-    
+
     async def load_cogs(self):
         await asyncio.gather(*(
             self.load_extension(f"src.cogs.{cog.stem}", package="bot")
@@ -57,14 +57,14 @@ def main():
         activity=config.activity,
         description=config.description,
         allowed_mentions=discord.AllowedMentions(everyone=False, roles=False),
-        intents=discord.Intents(guilds=True, reactions=True),
+        intents=discord.Intents(guilds=True, reactions=True, message_content=True),
         member_cache_flags=discord.MemberCacheFlags.none(),
         max_messages=None,
         chunk_guilds_at_startup=False,
         shard_count=config.shards
     )
 
-    try: 
+    try:
         bot.run(auth.DISCORD_TOKEN, log_handler=None)
     finally:
         asyncio.run(bot.close())
